@@ -1,0 +1,75 @@
+# Winoverse Wine Board
+# Canonical board configuration.
+# Detailed deliberation mechanics live in protocols/default.md.
+# Detailed persona behavior lives in personas/*.md.
+
+
+board:
+  name: Wine Board
+  version: "0.1"
+  status: experimental
+
+
+members:
+  - id: french
+    role: member
+    persona: personas/french.md
+
+
+  - id: italian
+    role: member
+    persona: personas/italian.md
+
+
+  - id: american
+    role: member
+    persona: personas/american.md
+
+
+chair:
+  id: chair
+  role: chair
+  persona: personas/chair.md
+
+
+protocol:
+  file: protocols/default.md
+
+
+evidence:
+  common_packet: true
+  provenance_required: true
+  classifications:
+    - fact
+    - source_claim
+    - board_interpretation
+
+
+execution:
+  default:
+    engine: current_harness
+
+
+  explicit_gpt:
+    trigger: explicit
+    engine: remote_gpt
+    unavailable_behavior: fallback_to_current_harness
+    disclose_fallback: true
+
+
+  gpt_only:
+    trigger: explicit
+    engine: remote_gpt
+    unavailable_behavior: fail
+
+
+session:
+  persistence: ephemeral
+
+
+constraints:
+  same_evidence_for_all_members: true
+  independent_judgment_before_challenge: true
+  chair_does_not_invent_candidates_by_default: true
+  cellar_not_required: true
+  mac_not_required_for_default_execution: true
